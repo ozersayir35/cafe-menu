@@ -1,0 +1,310 @@
+{
+  "cafe": {
+    "name": "HİÇBİ' YER",
+    "tagline": "Coffee • Yoga • Workshop",
+    "description": "Kahve, Meditasyon, Yaratıcılık Bir Yerde",
+    "phone": "+90 (555) 123-4567",
+    "location": "İzmir, Türkiye",
+    "hours": "08:00 - 22:00"
+  },
+  "categories": [
+    {
+      "id": "coffee",
+      "name": "☕ KAHVELER",
+      "items": [
+        {
+          "name": "Espresso",
+          "description": "Yoğun ve aromalı, saf kahvenin tadı",
+          "price": 45,
+          "size": "30ml",
+          "emoji": "☕",
+          "recommended": false
+        },
+        {
+          "name": "Americano",
+          "description": "Espresso ile sıcak su karışımı, yumuşak tat",
+          "price": 50,
+          "size": "250ml",
+          "emoji": "🖤",
+          "recommended": false
+        },
+        {
+          "name": "Cappuccino",
+          "description": "Espresso, süt ve köpük karışımı, kremsi",
+          "price": 55,
+          "size": "300ml",
+          "emoji": "🤍",
+          "recommended": false
+        },
+        {
+          "name": "Latte",
+          "description": "Espresso ve bol süt, hafif kahve tadı",
+          "price": 60,
+          "size": "350ml",
+          "emoji": "☁️",
+          "recommended": false
+        },
+        {
+          "name": "Mocha",
+          "description": "Kahve, çikolata ve süt karışımı, lezzetli",
+          "price": 65,
+          "size": "350ml",
+          "emoji": "🍫",
+          "recommended": false
+        },
+        {
+          "name": "Iced Coffee",
+          "description": "Soğuk kahve, buz ve serinlik",
+          "price": 60,
+          "size": "300ml",
+          "emoji": "❄️",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "tea",
+      "name": "🍵 ÇAYLAR",
+      "items": [
+        {
+          "name": "Türk Çayı",
+          "description": "Geleneksel yapılı, sıcak Türk çayı",
+          "price": 35,
+          "size": "200ml",
+          "emoji": "🍵",
+          "recommended": false
+        },
+        {
+          "name": "Yeşil Çay",
+          "description": "Sağlıklı ve ferahlatıcı, doğal çay",
+          "price": 40,
+          "size": "250ml",
+          "emoji": "🌿",
+          "recommended": true
+        },
+        {
+          "name": "Meditasyon Çayı",
+          "description": "Papatyacık, melisa, lavanta, rahatlama için",
+          "price": 45,
+          "size": "250ml",
+          "emoji": "🌼",
+          "recommended": true
+        },
+        {
+          "name": "Limon & Bal Çayı",
+          "description": "Taze limon ve bal ile tatlandırılmış",
+          "price": 40,
+          "size": "250ml",
+          "emoji": "🍋",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "smoothie",
+      "name": "🥤 SEÇKİN İÇECEKLER",
+      "items": [
+        {
+          "name": "Çilekli Smoothie",
+          "description": "Taze çilek, yoğurt, bal ve buz",
+          "price": 65,
+          "size": "350ml",
+          "emoji": "🍓",
+          "recommended": true
+        },
+        {
+          "name": "Yeşil Smoothie",
+          "description": "Kiwi, ıspanak, elma ve yeşil çay",
+          "price": 70,
+          "size": "350ml",
+          "emoji": "🥝",
+          "recommended": true
+        },
+        {
+          "name": "Kakao Sıcak",
+          "description": "Sıcak çikolata, özel karışım, bol köpük",
+          "price": 55,
+          "size": "300ml",
+          "emoji": "🍫",
+          "recommended": false
+        },
+        {
+          "name": "Taze Sıkılmış Meyve Suyu",
+          "description": "Portakal, elma veya nar seçeneği",
+          "price": 50,
+          "size": "300ml",
+          "emoji": "🍋",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "pastry",
+      "name": "🍰 PASTA VE TATLILAR",
+      "items": [
+        {
+          "name": "Çikolatalı Pasta",
+          "description": "Koyu çikolata, bol çikolata sosu, lüks tat",
+          "price": 85,
+          "size": "1 Dilim",
+          "emoji": "🍰",
+          "recommended": false
+        },
+        {
+          "name": "Karamel Muffin",
+          "description": "Taze yapılı, tereyağlı, karamel soslu",
+          "price": 45,
+          "size": "1 Adet",
+          "emoji": "🧁",
+          "recommended": false
+        },
+        {
+          "name": "Çentilmen Kruvasan",
+          "description": "Çok katlı, mantarlı, yağlı, kısırıltılı",
+          "price": 50,
+          "size": "1 Adet",
+          "emoji": "🥐",
+          "recommended": false
+        },
+        {
+          "name": "Meyveli Tart",
+          "description": "Taze meyveler, krem dolgu, şık görünüm",
+          "price": 80,
+          "size": "1 Dilim",
+          "emoji": "🍓",
+          "recommended": false
+        },
+        {
+          "name": "Fındıklı Kurabiye",
+          "description": "Evde yapılmış, fındık parçacıklı, lezzetli",
+          "price": 35,
+          "size": "3 Adet",
+          "emoji": "🍪",
+          "recommended": false
+        },
+        {
+          "name": "Çikolata Brownie",
+          "description": "Yoğun çikolata, ıslak iç, cennet tadında",
+          "price": 55,
+          "size": "1 Adet",
+          "emoji": "🍫",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "sandwich",
+      "name": "🥪 SANDVİÇ VE ATIŞTIRIMALAR",
+      "items": [
+        {
+          "name": "Tavuk Sandviçi",
+          "description": "Izgara tavuk, domates, marul, özel sos",
+          "price": 75,
+          "size": "1 Adet",
+          "emoji": "🥪",
+          "recommended": false
+        },
+        {
+          "name": "Peynirli Tost",
+          "description": "Kaşar peyniri, domates, tereyağ, sıcak",
+          "price": 60,
+          "size": "1 Adet",
+          "emoji": "🧀",
+          "recommended": false
+        },
+        {
+          "name": "Patates Kızartması",
+          "description": "Kızartılmış taze patates, sos eşliğinde",
+          "price": 45,
+          "size": "250g",
+          "emoji": "🍟",
+          "recommended": false
+        },
+        {
+          "name": "Atıştırmalık Tabağı",
+          "description": "Zeytin, peynir, salatalık, humus karışımı",
+          "price": 85,
+          "size": "2 Kişi",
+          "emoji": "🥒",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "breakfast",
+      "name": "🍳 KAHVALTI",
+      "items": [
+        {
+          "name": "Yumurtalı Kahvaltı",
+          "description": "2 Yumurta, peynir, zeytin, ekmek, çay",
+          "price": 95,
+          "size": "1 Kişi",
+          "emoji": "🍳",
+          "recommended": false
+        },
+        {
+          "name": "Türk Kahvaltı Seti",
+          "description": "Peynir, sürk, zeytin, reçel, ekmek, çay",
+          "price": 120,
+          "size": "1 Kişi",
+          "emoji": "🥒",
+          "recommended": false
+        },
+        {
+          "name": "Bal Kaymak Kahvaltı",
+          "description": "Bal, kaymak, ekmek, tereyağ, çay sıcak",
+          "price": 110,
+          "size": "1 Kişi",
+          "emoji": "🍯",
+          "recommended": false
+        },
+        {
+          "name": "Sıcak Ekmek & Tereyağ",
+          "description": "Fırından çıkma ekmek, taze tereyağ, bal",
+          "price": 50,
+          "size": "1 Adet",
+          "emoji": "🍞",
+          "recommended": false
+        }
+      ]
+    },
+    {
+      "id": "combos",
+      "name": "⭐ ÖZEL KOMBINLER",
+      "items": [
+        {
+          "name": "Kahveli Atıştırma",
+          "description": "Kahve + Muffin + Kurabiye Seti",
+          "price": 120,
+          "size": "Kombin",
+          "emoji": "☕",
+          "recommended": false
+        },
+        {
+          "name": "Yoga & Meditasyon Seti",
+          "description": "Yeşil Çay + Smoothie + Sağlıklı Atıştırma",
+          "price": 140,
+          "size": "Kombin",
+          "emoji": "🧘",
+          "recommended": true
+        },
+        {
+          "name": "Akşam Seçimi",
+          "description": "2 Kahve + 2 Tatlı + Atıştırmalık",
+          "price": 250,
+          "size": "2 Kişi",
+          "emoji": "🎁",
+          "recommended": false
+        },
+        {
+          "name": "Workshop Paketi",
+          "description": "4 Kahve + Atıştırmalık + Tatlılar",
+          "price": 450,
+          "size": "4 Kişi",
+          "emoji": "👥",
+          "recommended": false
+        }
+      ]
+    }
+  ]
+}
