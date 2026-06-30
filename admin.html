@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiçbi' Yer - Admin Paneli</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6f4e37 0%, #8b6f47 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: #6f4e37;
+            border-bottom-color: #6f4e37;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #6f4e37;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #f0e6d2;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #6f4e37;
+            box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #6f4e37;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #8b6f47;
+            transform: translateY(-2px);
+        }
+
+        button.secondary {
+            background: #999;
+            margin-left: 10px;
+        }
+
+        button.secondary:hover {
+            background: #777;
+        }
+
+        button.danger {
+            background: #e74c3c;
+        }
+
+        button.danger:hover {
+            background: #c0392b;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .item-list {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 4px solid #6f4e37;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .item-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #6f4e37;
+        }
+
+        .item-desc {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f0e6d2;
+            color: #6f4e37;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .preview {
+            background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .preview-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #6f4e37;
+        }
+
+        .preview-item-name {
+            font-weight: 600;
+            color: #6f4e37;
+        }
+
+        .preview-item-desc {
+            font-size: 12px;
+            color: #666;
+            margin: 4px 0;
+        }
+
+        .preview-item-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .category-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .category-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏪 Hiçbi' Yer Admin Paneli</h1>
+            <p>Menü ve Cafe Bilgilerini Yönet</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('cafe')">Cafe Bilgileri</button>
+            <button class="tab-button" onclick="switchTab('products')">Ürünleri Yönet</button>
+            <button class="tab-button" onclick="switchTab('preview')">Önizle</button>
+            <button class="tab-button" onclick="switchTab('settings')">Ayarlar</button>
+        </div>
+
+        <!-- CAFE BİLGİLERİ -->
+        <div id="cafe" class="tab-content active">
+            <div class="section">
+                <h2>Cafe Bilgileri</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Cafe Adı</label>
+                        <input type="text" id="cafeName" placeholder="Hiçbi' Yer">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline</label>
+                        <input type="text" id="cafeTagline" placeholder="Coffee • Yoga • Workshop">
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <textarea id="cafeDesc" placeholder="Kahve, Meditasyon, Yaratıcılık Bir Yerde"></textarea>
+                    </div>
+                    <div></div>
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" id="cafePhone" placeholder="+90 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Lokasyon</label>
+                        <input type="text" id="cafeLocation" placeholder="İzmir, Türkiye">
+                    </div>
+                    <div class="form-group">
+                        <label>Çalışma Saatleri</label>
+                        <input type="text" id="cafeHours" placeholder="08:00 - 22:00">
+                    </div>
+                </div>
+                <button onclick="saveCafeInfo()">Kaydet</button>
+            </div>
+        </div>
+
+        <!-- ÜRÜN YÖNETİMİ -->
+        <div id="products" class="tab-content">
+            <div class="section">
+                <h2>Ürünleri Yönet</h2>
+                
+                <div id="categoriesContainer"></div>
+
+                <div style="margin-top: 20px;">
+                    <button onclick="openAddProductModal()">+ Yeni Ürün Ekle</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÖNİZLE -->
+        <div id="preview" class="tab-content">
+            <div class="section">
+                <h2>Menü Önizlemesi</h2>
+                <div class="preview" id="previewContent">
+                    Ürün ekledikten sonra burada görünecek...
+                </div>
+                <p style="margin-top: 15px; font-size: 13px; color: #666;">
+                    ℹ️ Bu önizleme gerçek menüdeki görünüşe benzer. Web'de açıldığında böyle görünecektir.
+                </p>
+            </div>
+        </div>
+
+        <!-- AYARLAR -->
+        <div id="settings" class="tab-content">
+            <div class="section">
+                <h2>Dosya İşlemleri</h2>
+                
+                <div class="form-group">
+                    <label>📥 Menu.json İndir</label>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                        Tüm menü verilerini JSON dosyası olarak indirebilirsiniz. GitHub'a manuel yüklemeye gerek kalmaz.
+                    </p>
+                    <button onclick="downloadMenuJSON()">JSON İndir</button>
+                </div>
+
+                <hr style="margin: 25px 0; border: none; border-top: 1px solid #ddd;">
+
+                <div class="form-group">
+                    <label>📤 Menu.json Yükle</label>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                        Daha önce indirilmiş bir JSON dosyasını yükleyerek geri yükleyebilirsiniz.
+                    </p>
+                    <input type="file" id="jsonFile" accept=".json">
+                    <button onclick="uploadMenuJSON()" style="margin-top: 10px;">Yükle</button>
+                </div>
+
+                <hr style="margin: 25px 0; border: none; border-top: 1px solid #ddd;">
+
+                <div class="form-group">
+                    <label>⚠️ Tüm Verileri Sıfırla</label>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                        Tüm menü verilerini silerek baştan başlamak isterseniz bu düğmeyi kullanın.
+                    </p>
+                    <button onclick="resetAllData()" class="danger">Sıfırla</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Bilgiler</h2>
+                <p style="font-size: 14px; line-height: 1.6; color: #666;">
+                    <strong>Admin Paneli Rehberi:</strong><br><br>
+                    1. <strong>Cafe Bilgileri</strong> sekmesinde cafe adı, telefon, saat gibi bilgileri düzenleyin<br>
+                    2. <strong>Ürünleri Yönet</strong> sekmesinde ürün ekleyin, fiyat değiştirin<br>
+                    3. <strong>Önizle</strong> sekmesinde nasıl görüneceğini kontrol edin<br>
+                    4. <strong>JSON İndir</strong> ile dosyayı indirip GitHub'a yükleyin<br><br>
+                    
+                    Tüm veriler bu tarayıcının LocalStorage'ında saklanır. Farklı tarayıcı/bilgisayar kullanırsanız veriler kaybolur!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Ürün Ekle/Düzenle -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Ürün Ekle/Düzenle</div>
+            
+            <div class="form-group">
+                <label>Kategori</label>
+                <select id="modalCategory">
+                    <option value="coffee">☕ KAHVELER</option>
+                    <option value="tea">🍵 ÇAYLAR</option>
+                    <option value="smoothie">🥤 SEÇKİN İÇECEKLER</option>
+                    <option value="pastry">🍰 PASTA VE TATLILAR</option>
+                    <option value="sandwich">🥪 SANDVİÇ VE ATIŞTIRIMALAR</option>
+                    <option value="breakfast">🍳 KAHVALTI</option>
+                    <option value="combos">⭐ ÖZEL KOMBINLER</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Ürün Adı</label>
+                <input type="text" id="modalName" placeholder="Espresso">
+            </div>
+
+            <div class="form-group">
+                <label>Açıklama</label>
+                <textarea id="modalDesc" placeholder="Yoğun ve aromalı, saf kahvenin tadı"></textarea>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Fiyat (₺)</label>
+                    <input type="number" id="modalPrice" placeholder="45" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Boyut/Porsiyon</label>
+                    <input type="text" id="modalSize" placeholder="30ml">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Emoji</label>
+                <input type="text" id="modalEmoji" placeholder="☕" maxlength="2">
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="modalRecommended">
+                <label for="modalRecommended" style="margin: 0;">🧘 Önerilen Ürün</label>
+            </div>
+
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeModal()">İptal</button>
+                <button onclick="saveProduct()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let menuData = {
+            cafe: {
+                name: "HİÇBİ' YER",
+                tagline: "Coffee • Yoga • Workshop",
+                description: "Kahve, Meditasyon, Yaratıcılık Bir Yerde",
+                phone: "+90 (555) 123-4567",
+                location: "İzmir, Türkiye",
+                hours: "08:00 - 22:00"
+            },
+            categories: [
+                { id: "coffee", name: "☕ KAHVELER", items: [] },
+                { id: "tea", name: "🍵 ÇAYLAR", items: [] },
+                { id: "smoothie", name: "🥤 SEÇKİN İÇECEKLER", items: [] },
+                { id: "pastry", name: "🍰 PASTA VE TATLILAR", items: [] },
+                { id: "sandwich", name: "🥪 SANDVİÇ VE ATIŞTIRIMALAR", items: [] },
+                { id: "breakfast", name: "🍳 KAHVALTI", items: [] },
+                { id: "combos", name: "⭐ ÖZEL KOMBINLER", items: [] }
+            ]
+        };
+
+        let editingIndex = null;
+        let editingCategory = null;
+
+        function loadData() {
+            const saved = localStorage.getItem('menuData');
+            if (saved) {
+                menuData = JSON.parse(saved);
+            }
+            loadCafeInfo();
+            renderProducts();
+            renderPreview();
+        }
+
+        function saveData() {
+            localStorage.setItem('menuData', JSON.stringify(menuData));
+            renderProducts();
+            renderPreview();
+            showMessage('Veriler kaydedildi', 'success');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function loadCafeInfo() {
+            document.getElementById('cafeName').value = menuData.cafe.name;
+            document.getElementById('cafeTagline').value = menuData.cafe.tagline;
+            document.getElementById('cafeDesc').value = menuData.cafe.description;
+            document.getElementById('cafePhone').value = menuData.cafe.phone;
+            document.getElementById('cafeLocation').value = menuData.cafe.location;
+            document.getElementById('cafeHours').value = menuData.cafe.hours;
+        }
+
+        function saveCafeInfo() {
+            menuData.cafe.name = document.getElementById('cafeName').value;
+            menuData.cafe.tagline = document.getElementById('cafeTagline').value;
+            menuData.cafe.description = document.getElementById('cafeDesc').value;
+            menuData.cafe.phone = document.getElementById('cafePhone').value;
+            menuData.cafe.location = document.getElementById('cafeLocation').value;
+            menuData.cafe.hours = document.getElementById('cafeHours').value;
+            saveData();
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+
+            menuData.categories.forEach(category => {
+                const section = document.createElement('div');
+                section.className = 'category-section';
+                
+                let itemsHTML = category.items.map((item, idx) => `
+                    <div class="item-list">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-name">${item.emoji} ${item.name}</div>
+                                <div class="item-desc">${item.description}</div>
+                                <div>
+                                    ${item.recommended ? '<span class="badge">🧘 Önerilen</span>' : ''}
+                                    <span class="badge">${item.size}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="item-price">₺${item.price}</div>
+                                <div style="margin-top: 8px; display: flex; gap: 5px;">
+                                    <button onclick="editProduct('${category.id}', ${idx})" style="padding: 5px 10px; font-size: 12px;">Düzenle</button>
+                                    <button onclick="deleteProduct('${category.id}', ${idx})" class="danger" style="padding: 5px 10px; font-size: 12px;">Sil</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                section.innerHTML = `
+                    <div class="category-title">${category.name}</div>
+                    ${itemsHTML || '<p style="color: #999;">Henüz ürün yok</p>'}
+                    <button onclick="openAddProductModal('${category.id}')" style="margin-top: 10px; font-size: 13px;">+ ${category.name} Ekle</button>
+                `;
+
+                container.appendChild(section);
+            });
+        }
+
+        function openAddProductModal(categoryId) {
+            editingIndex = null;
+            editingCategory = categoryId || 'coffee';
+            document.getElementById('modalCategory').value = editingCategory;
+            document.getElementById('modalName').value = '';
+            document.getElementById('modalDesc').value = '';
+            document.getElementById('modalPrice').value = '';
+            document.getElementById('modalSize').value = '';
+            document.getElementById('modalEmoji').value = '';
+            document.getElementById('modalRecommended').checked = false;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function editProduct(categoryId, index) {
+            editingCategory = categoryId;
+            editingIndex = index;
+            const item = menuData.categories.find(c => c.id === categoryId).items[index];
+            
+            document.getElementById('modalCategory').value = categoryId;
+            document.getElementById('modalName').value = item.name;
+            document.getElementById('modalDesc').value = item.description;
+            document.getElementById('modalPrice').value = item.price;
+            document.getElementById('modalSize').value = item.size;
+            document.getElementById('modalEmoji').value = item.emoji;
+            document.getElementById('modalRecommended').checked = item.recommended;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function saveProduct() {
+            const category = menuData.categories.find(c => c.id === document.getElementById('modalCategory').value);
+            
+            const product = {
+                name: document.getElementById('modalName').value,
+                description: document.getElementById('modalDesc').value,
+                price: parseInt(document.getElementById('modalPrice').value) || 0,
+                size: document.getElementById('modalSize').value,
+                emoji: document.getElementById('modalEmoji').value || '☕',
+                recommended: document.getElementById('modalRecommended').checked
+            };
+
+            if (editingIndex !== null) {
+                category.items[editingIndex] = product;
+            } else {
+                category.items.push(product);
+            }
+
+            saveData();
+            closeModal();
+        }
+
+        function deleteProduct(categoryId, index) {
+            if (confirm('Bu ürünü silmek istediğiniz emin misiniz?')) {
+                const category = menuData.categories.find(c => c.id === categoryId);
+                category.items.splice(index, 1);
+                saveData();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function renderPreview() {
+            let html = '';
+            menuData.categories.forEach(category => {
+                if (category.items.length > 0) {
+                    html += `<div style="margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #6f4e37; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                            ${category.name}
+                        </div>`;
+                    
+                    category.items.forEach(item => {
+                        html += `
+                            <div class="preview-item">
+                                <div class="preview-item-name">${item.emoji} ${item.name}</div>
+                                <div class="preview-item-desc">${item.description}</div>
+                                <div class="preview-item-footer">
+                                    <span>₺${item.price}</span>
+                                    <span>${item.size}</span>
+                                    ${item.recommended ? '<span>🧘 Önerilen</span>' : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+            });
+            
+            document.getElementById('previewContent').innerHTML = html || 'Henüz ürün eklenmedi...';
+        }
+
+        function downloadMenuJSON() {
+            const dataStr = JSON.stringify(menuData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'menu.json';
+            link.click();
+            showMessage('Menu.json indirildi!', 'success');
+        }
+
+        function uploadMenuJSON() {
+            const file = document.getElementById('jsonFile').files[0];
+            if (!file) {
+                alert('Lütfen bir dosya seçiniz');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    menuData = data;
+                    saveData();
+                    loadCafeInfo();
+                    showMessage('Menu.json başarıyla yüklendi!', 'success');
+                } catch (err) {
+                    alert('Dosya formatı hatalı: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function resetAllData() {
+            if (confirm('TÜM VERİLER SİLİNECEK! Emin misiniz?')) {
+                if (confirm('Tekrar kontrol: Tüm menü verilerini silmek istediğiniz emin misiniz?')) {
+                    localStorage.removeItem('menuData');
+                    location.reload();
+                }
+            }
+        }
+
+        function showMessage(msg, type) {
+            alert(msg);
+        }
+
+        // Başlangıç
+        loadData();
+    </script>
+</body>
+</html>
